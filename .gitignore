@@ -6,3 +6,6 @@ bin/
 include/
 lib/
 stockAnalytics/settings.py
+stockAnalytics/__pycache__
+accounts/__pycache__
+accounts/migrations
