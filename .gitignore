@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+manage.py
+notes.md
+bin/
+include/
+lib/
+stockAnalytics/settings.py

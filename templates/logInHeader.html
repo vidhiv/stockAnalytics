@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <title>Stock Analytics</title>
+  {% load static %}
+  <link href="{% static 'images/favicon.ico' %}" rel="icon">
+  <link href="{% static 'images/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/style.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/font-awesome/css/font-awesome.css' %}" rel="stylesheet"> 
+</head>
+
+<body>
+  <div class="container-fluid">
+    <header>
+      <div class="menu">
+        <nav id="stickmenu" class="navbar navbar-expand-lg navbar-light firstpage">
+          <div class="container-fluid">
+            <span class="navbar-brand" href="/">Stock <span style="color: #118d11">Analytics</span></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+              <ul class="navbar-nav mb-2 mb-lg-0 nav-pills nav-fill">
+                <li class="nav-item">
+                  <a class="nav-link" href="dailyTips">Great Tips</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="stockData">Dive In Stocks</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="myProfile">My Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="logOut">LogOut</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <footer>
+      <div class="container">
+        <div class="row sectionedCSS">
+          <div class="col-md-12 col-sm-12 center-col text-center py-3">©2021 Copyright: Stock Analytics</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

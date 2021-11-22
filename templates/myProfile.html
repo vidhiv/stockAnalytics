@@ -1,0 +1,47 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+<section class="coloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 text-center">
+                <img src="{% static 'images/userprofile.png' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-4" id="userregistration">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h3>User Profile</h3>
+
+                        <div class="container">
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"> <strong>Name:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.fullname}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"><strong>Email:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.email}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"> <strong>Contact:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.contact}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"><strong>No of tips viewed:</strong>  </label>
+                                    <label class="control-label col-sm-5"> {{data.tip_id}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

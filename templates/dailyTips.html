@@ -1,0 +1,69 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+<section class="coloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 text-center">
+                <img src="{% static 'images/tip.png' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h3>Todays Tip</h3>
+                        <label class="control-label col-lg-12 text-center commenttip"> Log in daily to receive new
+                            tip!</label>
+                        {% if data.tipInfo %}
+                        <label class="control-label smallcaps"> <strong>{{data.tipInfo.tipType}}:</strong></label>
+                        <label class="control-label"> {{data.tipInfo.tipContent}}</label>
+                        {% else %}
+                        <label class="control-label">Sorry!!! No new tip available for today</label>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="uncoloredRow">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-11">
+                    <h3>Tips Unlocked till now</h3>
+                    <label class="control-label col-lg-12 text-center commenttip"></label>
+                    <div class="col-lg-10">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Tip (Recently Unlocked)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if data.tipData %}
+                                {% for e in data.tipData%}
+                                {% if data.tipInfo.id != e.id %}
+                                <tr>
+                                    <td class="smallcaps">{{e.tipType}}</td>
+                                    <td></td>
+                                    <td>{{e.tipContent}}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td class="text-center commenttip" colspan="2">No tips unlocked so far!!</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

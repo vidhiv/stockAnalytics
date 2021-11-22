@@ -1,0 +1,163 @@
+body {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header {
+    font-variant-caps: small-caps;
+}
+
+#home {
+    background-color: black;
+}
+
+.menu {
+    background: white;
+}
+
+.navbar-brand {
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding-left: 1em;
+    color:red;
+}
+
+#navbarSupportedContent ul {
+    width:100%;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+#navbarSupportedContent .active {
+    color: rgb(46 193 146);
+    font-weight: 600;
+    background-color: #00000000;
+}
+
+.coloredRow {
+    background:#ededed;
+    color: #6b635f;
+}
+
+.coloredRow p{
+    padding-top: 1em;
+}
+
+.coloredRow h3 {
+    padding-top: 1em;
+    border-bottom: 4px solid rgb(46 193 146);
+}
+
+.coloredRow ul {
+    list-style-type: none;
+}
+
+.btn-outline-theme {
+    color: rgb(46 193 146);
+    border: 2px solid rgb(46 193 146);
+    font-weight: 500;
+}
+
+.btn-outline-theme:hover {
+    color: #fff;
+    color: rgb(46 193 146);
+    border-color: rgb(46 193 146);
+}
+
+.sectionedCSS {
+    padding-left: 2em;
+    padding-right: 1em;
+    font-variant-caps: small-caps;
+    color: #6b635f;
+}
+
+.sectionedCSS h3 {
+    border-bottom: 4px solid rgb(46 193 146);
+    padding-bottom: 1em;
+    text-align: center;
+    font-variant-caps: small-caps;
+}
+
+.mainSection{
+    font-weight: 500;
+    font-size: 1.2em;
+    padding-top: 0em !important;
+}
+
+.subSection{
+    font-style: italic;
+    padding-top: 0em !important;
+}
+
+#userregistration {
+    padding-left: 2em;
+}
+
+
+.btn-theme {
+    color: white;
+    font-weight: 500;
+    background-color: #3cc191;
+}
+
+.btn-theme:hover {
+    color: white;
+    font-weight: 500;
+    background-color: #3cc191;
+}
+
+.form-control {
+    margin-bottom: 1em;
+}
+
+.required {
+    color: red;
+    font-size: 0.8em;
+    font-variant-caps: small-caps;
+}
+
+.successmessage {
+    color: #2fb12f;
+    font-variant-caps: small-caps;
+}
+.failuremessage {
+    color: red;
+    font-variant-caps: small-caps;
+}
+.hidden  {
+    display: none;
+}
+
+
+.uncoloredRow {
+    background:#f1fffa;
+    color: #6b635f;
+}
+
+.uncoloredRow p{
+    padding-top: 1em;
+}
+
+.uncoloredRow h3 {
+    padding-top: 1em;
+    border-bottom: 4px solid rgb(46 193 146);
+}
+
+.uncoloredRow ul {
+    list-style-type: none;
+}
+
+.smallcaps {
+    font-size: 1.2em;
+    font-variant-caps: small-caps;
+}
+
+.commenttip {
+    color: #277a27;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    font-variant-caps: small-caps;
+}

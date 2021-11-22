@@ -1,0 +1,47 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+<section class="coloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 text-center">
+                <img src="{% static 'images/stocks.jpeg' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-7" id="userregistration">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h3>View Stock Info</h3>
+                        <div class="container">
+                            <span>Search stocks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="uncoloredRow">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="row">
+                <div class="col-lg-10" id="userregistration">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <h3>Paper Trading</h3>
+                            <div class="row">
+                                <span>Search stocks</span>
+                            </div>
+                            <div class="row">
+                                <span>My Portfolio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <img src="{% static 'images/papertrade.jpeg' %}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
