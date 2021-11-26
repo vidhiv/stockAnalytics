@@ -109,20 +109,13 @@ def dailyTips(request):
             userinfo.tip_date = today
             userinfo.save()
         data = {}
-        print("here")
         print(len(tipinfo))
-        print("in here")
         if len(tipinfo) > 0:
             for e in tipinfo:
-                print("in for")
                 if e.id == tipid:
-                    print("in eid len")
                     data['tipInfo'] = e
-                    print("out eid len")
                     break
-            print("tipData assign")
             data['tipData'] = tipinfo
-            print("out tipData assign")
         
         print("post:")
         print(request.session['data'])
