@@ -99,6 +99,8 @@ def dailyTips(request):
         if request.session['data']['tip_date'] == today:
             print("in if:")
             tipinfo = fetchTipData(tipid)
+            print("got data:")
+            print(tipinfo)
         else:
             print("in else:")
             tipid = tipid + 1
