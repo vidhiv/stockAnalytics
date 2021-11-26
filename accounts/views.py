@@ -116,7 +116,9 @@ def dailyTips(request):
                     data['tipInfo'] = e
                     print("out eid len")
                     break
+            print("tipData assign")
             data['tipData'] = tipinfo
+            print("out tipData assign")
         
         print("post:")
         print(request.session['data'])
