@@ -18,6 +18,8 @@ def checkUserloggedIn(request):
 def fetchTipData(tipid):
     # tipdata = serializers.serialize("json", tipData.objects.filter(id__lte = tipid).order_by('-id'))
     tipdata =  tipData.objects.filter(id__lte = tipid).order_by('-id')
+    print("fetched data tipData")
+    print(tipData)
     return tipdata
 
 def registerUser(request):
