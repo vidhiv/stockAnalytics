@@ -94,15 +94,10 @@ def dailyTips(request):
         tipid = request.session['data']['tip_id']
         tipinfo = {}
         print("in dailytip")
-        print("pre:")
         print(request.session['data'])
         if request.session['data']['tip_date'] == today:
-            print("in if:")
             tipinfo = fetchTipData(tipid)
-            print("got data:")
-            print(tipinfo)
         else:
-            print("in else:")
             tipid = tipid + 1
             tipinfo = fetchTipData(tipid)
             request.session['data']['tip_id'] = tipid
@@ -113,6 +108,7 @@ def dailyTips(request):
             userinfo.tip_date = today
             userinfo.save()
         data = {}
+        print("check len")
         if len(tipinfo) > 0:
             for e in tipinfo:
                 if e.id == tipid:
