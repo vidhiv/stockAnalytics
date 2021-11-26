@@ -109,8 +109,10 @@ def dailyTips(request):
             userinfo.save()
         data = {}
         print("here")
+        print(len(tipinfo))
         if len(tipinfo) > 0:
             for e in tipinfo:
+                print("in for")
                 if e.id == tipid:
                     print("in eid len")
                     data['tipInfo'] = e
