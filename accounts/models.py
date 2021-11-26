@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime    
 
 # Create your models here.
 class userInfo(models.Model):
@@ -13,4 +14,4 @@ class userInfo(models.Model):
 class tipData(models.Model):
     tipContent = models.TextField()
     tipType = models.CharField(max_length=10)
-    date_created=models.DateTimeField()
+    date_created=models.DateTimeField(default=datetime.now)
