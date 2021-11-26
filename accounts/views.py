@@ -18,8 +18,6 @@ def checkUserloggedIn(request):
 def fetchTipData(tipid):
     # tipdata = serializers.serialize("json", tipData.objects.filter(id__lte = tipid).order_by('-id'))
     tipdata =  tipData.objects.filter(id__lte = tipid).order_by('-id')
-    print("fetched data tipData")
-    print(tipData)
     return tipdata
 
 def registerUser(request):
@@ -96,6 +94,7 @@ def dailyTips(request):
         tipid = request.session['data']['tip_id']
         tipinfo = {}
         print("in dailytip")
+        print(len(tipinfo))
         print(request.session['data'])
         if request.session['data']['tip_date'] == today:
             tipinfo = fetchTipData(tipid)
