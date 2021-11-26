@@ -111,6 +111,7 @@ def dailyTips(request):
         data = {}
         print("here")
         print(len(tipinfo))
+        print("in here")
         if len(tipinfo) > 0:
             for e in tipinfo:
                 print("in for")
