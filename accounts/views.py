@@ -108,7 +108,7 @@ def dailyTips(request):
             userinfo.tip_date = today
             userinfo.save()
         data = {}
-        
+        print("here")
         if len(tipinfo) > 0:
             for e in tipinfo:
                 if e.id == tipid:
