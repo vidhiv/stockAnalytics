@@ -6,7 +6,7 @@
         <div class="row">
             {% if status == 'success' %}
             <div class="col-lg-3 ">
-                <img src="{% static 'images/company/' %}{{data.0.code}}.jpeg" class="img-fluid" alt="">
+                <img src="{% static 'images/company/' %}{{data.0.code|lower}}.jpeg" class="img-fluid" alt="">
             </div>
             <div class="col-lg-5">
                 <div class="row">
@@ -111,7 +111,7 @@
                         </table>
                     </div>
                     <div class="col-lg-6">
-                        <img src="{% static 'images/charts/' %}{{data.0.code}}.png" class="img-fluid" alt="">
+                        <img src="{% static 'images/charts/' %}{{data.0.code|lower}}.png" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
