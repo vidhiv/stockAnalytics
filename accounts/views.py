@@ -156,7 +156,8 @@ def companyInfo(request, companyId):
         message = ''
         companyInfo = stockList.objects.filter(id=companyId).values()
         if len(companyInfo) == 1:
-            data['companyInfo'] = companyInfo
+            data = list(companyInfo)
+            message = 'company info avaialable'
         else:
             status = 'failure'
             message = 'Information Unavailable'

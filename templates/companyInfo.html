@@ -4,46 +4,128 @@
 <section class="coloredRow">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 text-center">
-                <img src="{% static 'images/userprofile.png' %}" class="img-fluid" alt="">
+            {% if status == 'success' %}
+            <div class="col-lg-3 ">
+                <img src="{% static 'images/company/' %}{{data.0.code}}.jpeg" class="img-fluid" alt="">
             </div>
-            <div class="col-lg-4" id="userregistration">
+            <div class="col-lg-5">
                 <div class="row">
                     <div class="col-lg-11">
                         <h3>Company Profile</h3>
                         <div class="container">
                             <div class="form-group">
                                 <div class="col-lg-10">
-                                    <label class="control-label col-sm-5"> <strong>Name:</strong> </label>
-                                    <label class="control-label col-sm-5"> {{data.name}}</label>
+                                    <label class="control-label col-sm-3"> <strong>Name:</strong> </label>
+                                    <label class="control-label col-sm-7">{{data.0.name}}</label>
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="col-lg-10">
-                                    <label class="control-label col-sm-5"><strong>Code:</strong> </label>
-                                    <label class="control-label col-sm-5"> {{data.code}}</label>
+                                    <label class="control-label col-sm-3"><strong>Code:</strong> </label>
+                                    <label class="control-label col-sm-7"> {{data.0.code}}</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-10">
-                                    <label class="control-label col-sm-5"> <strong>Sector:</strong> </label>
-                                    <label class="control-label col-sm-5"> {{data.sector}}</label>
+                                    <label class="control-label col-sm-3"> <strong>Sector:</strong> </label>
+                                    <label class="control-label col-sm-7"> {{data.0.sector}}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4" id="userregistration">
+            <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-11">
-                        <button class="btn btn-theme buysell" type="button" id="sellStock" href="#aboutme">BUY <span class="tradingwarning">(Papertrading*)</span></button>
+                        <button class="btn btn-theme buysell" type="button" id="sellStock" href="#aboutme">BUY <span
+                                class="tradingwarning">(Papertrading*)</span></button>
                     </div>
                     <div class="col-lg-11">
-                        <button id="buyStock" type="button" class="btn btn-danger buysell">SELL <span class="tradingwarning">(Papertrading*)</span></button>
+                        <button id="buyStock" type="button" class="btn btn-danger buysell">SELL <span
+                                class="tradingwarning">(Papertrading*)</span></button>
                     </div>
                 </div>
             </div>
+            {% else %}
+            <div class="col-lg-2 ">
+            </div>
+            <div class="col-lg-10 ">
+                <div class="col-lg-10 form-group">
+                    <label class="control-label col-sm-3"> <strong>Invalid company info</strong> </label>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {% if status == 'success' %}
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+                <h3>Price Prediction/ Charts</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="control-label col-sm-4"> <strong>Current Predicted price:</strong> </label>
+                        <label class="control-label col-sm-4">xx.xx</label>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Open</th>
+                                    <th scope="col">High</th>
+                                    <th scope="col">Low</th>
+                                    <th scope="col">Close</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>xx/xx/xxxx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                </tr>
+                                <tr>
+                                    <td>xx/xx/xxxx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                </tr>
+                                <tr>
+                                    <td>xx/xx/xxxx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                </tr>
+                                <tr>
+                                    <td>xx/xx/xxxx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                    <td>xx.xx</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="{% static 'images/charts/' %}{{data.0.code}}.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+            {% else %}
+            <div class="col-lg-2 ">
+            </div>
+            <div class="col-lg-10 ">
+                <div class="col-lg-10 form-group">
+                    <label class="control-label col-sm-3"> <strong>Invalid company info</strong> </label>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
