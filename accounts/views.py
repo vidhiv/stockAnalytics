@@ -140,7 +140,7 @@ def getStockList(request):
     if checkUserloggedIn(request) == 1:
         text = "%" + request.GET.get('keyword') + "%"
         # stocks = stockList.objects.filter(name__icontains=text).order_by('name').values()
-        stocks = stockList.objects.raw("SELECT * FROM stockAnalytics.accounts_stocklist where  name LIKE %s OR code like %s order by name",[text, text])
+        stocks = stockList.objects.raw("SELECT * FROM accounts_stocklist where  name LIKE %s OR code like %s order by name",[text, text])
         print(len(stocks))
         if len(stocks) > 0:
             return JsonResponse({"data" : serializers.serialize('json', stocks), "status": "success"}, status=200)
