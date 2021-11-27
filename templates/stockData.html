@@ -1,6 +1,8 @@
 {% extends 'logInHeader.html' %}
 {% block content %}
 {% load static %}
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="{% static 'js/stockData.js' %}"></script>
 <section class="coloredRow">
     <div class="container-fluid">
         <div class="row">
@@ -12,7 +14,13 @@
                     <div class="col-lg-11">
                         <h3>View Stock Info</h3>
                         <div class="container">
-                            <span>Search stocks</span>
+                            <form method="POST" class="form-inline d-flex dropdown">
+                                {% csrf_token %}
+                                <input class="form-control form-control-sm" type="text"
+                                    placeholder="Search Stocks...(Company Name)" id="searchbar" data-toggle="dropdown">
+                                <ul class="dropdown-menu" id="displist" role="menu" aria-labelledby="menu1"
+                                    style="display: none;"></ul>
+                            </form>
                         </div>
                     </div>
                 </div>

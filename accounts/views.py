@@ -4,6 +4,8 @@ import hashlib
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.http import JsonResponse
+from django.core import serializers
 
 from .forms import *
 from .models import *
@@ -109,7 +111,7 @@ def dailyTips(request):
             userinfo.tip_date = today
             userinfo.save()
         data = {}
-        print(len(tipinfo))
+        # print(len(tipinfo))
         if len(tipinfo) > 0:
             for e in tipinfo:
                 if e.id == tipid:
@@ -133,3 +135,31 @@ def logOut(request):
 
 def underConstruction(request):
     return render(request, 'underConstruction.html')
+
+def getStockList(request):
+    if checkUserloggedIn(request) == 1:
+        text = "%" + request.GET.get('keyword') + "%"
+        # stocks = stockList.objects.filter(name__icontains=text).order_by('name').values()
+        stocks = stockList.objects.raw("SELECT * FROM stockAnalytics.accounts_stocklist where  name LIKE %s OR code like %s order by name",[text, text])
+        print(len(stocks))
+        if len(stocks) > 0:
+            return JsonResponse({"data" : serializers.serialize('json', stocks), "status": "success"}, status=200)
+        else:
+            return JsonResponse({"message": "No data found", "status": "failure"}, status=200)
+    else:
+        return JsonResponse({"message": "Please Log In", "status": "failure"}, status=200)
+    
+def companyInfo(request, companyId):
+    if checkUserloggedIn(request) == 1:
+        data = {}
+        status = 'success'
+        message = ''
+        companyInfo = stockList.objects.filter(id=companyId).values()
+        if len(companyInfo) == 1:
+            data['companyInfo'] = companyInfo
+        else:
+            status = 'failure'
+            message = 'Information Unavailable'
+        return render(request, 'companyInfo.html',{'status': status ,'message': message,'data': data})
+    else:
+        return HttpResponseRedirect("/logIn")

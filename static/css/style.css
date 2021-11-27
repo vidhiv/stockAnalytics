@@ -161,3 +161,26 @@ header {
     font-size: 1.2em;
     font-variant-caps: small-caps;
 }
+
+#displist {
+    margin-top: 2em;
+    width: 100%;
+    display: none;
+}
+
+#displist li{
+    padding-left: 1em;
+}
+
+#displist li a{
+    text-decoration: none;
+    color: #32a37a;
+}
+
+.buysell {
+    margin-top: 2rem;
+}
+
+.tradingwarning {
+    font-size: 0.7em;
+}

@@ -1,0 +1,50 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+<section class="coloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 text-center">
+                <img src="{% static 'images/userprofile.png' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-4" id="userregistration">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h3>Company Profile</h3>
+                        <div class="container">
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"> <strong>Name:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.name}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"><strong>Code:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.code}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="control-label col-sm-5"> <strong>Sector:</strong> </label>
+                                    <label class="control-label col-sm-5"> {{data.sector}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" id="userregistration">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <button class="btn btn-theme buysell" type="button" id="sellStock" href="#aboutme">BUY <span class="tradingwarning">(Papertrading*)</span></button>
+                    </div>
+                    <div class="col-lg-11">
+                        <button id="buyStock" type="button" class="btn btn-danger buysell">SELL <span class="tradingwarning">(Papertrading*)</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

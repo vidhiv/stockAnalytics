@@ -30,4 +30,6 @@ urlpatterns = [
     path('stockData', views.stockData),
     path('logOut', views.logOut),
     path('underConstruction', views.underConstruction),
+    path('getStockList', views.getStockList),
+    path('companyInfo/<int:companyId>/',views.companyInfo),
 ]

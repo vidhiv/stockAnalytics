@@ -15,3 +15,10 @@ class tipData(models.Model):
     tipContent = models.TextField()
     tipType = models.CharField(max_length=10)
     date_created=models.DateTimeField(default=datetime.now)
+
+class stockList(models.Model):
+    name = models.TextField()
+    code = models.CharField(max_length=10)
+    is_active = models.SmallIntegerField(default=1)
+    sector = models.TextField()
+    date_created=models.DateTimeField(default=datetime.now)
