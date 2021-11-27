@@ -32,4 +32,6 @@ urlpatterns = [
     path('underConstruction', views.underConstruction),
     path('getStockList', views.getStockList),
     path('companyInfo/<int:companyId>/',views.companyInfo),
+    path('buyStock',views.buyStock),
+    path('sellStock',views.sellStock),
 ]

@@ -22,6 +22,11 @@ def fetchTipData(tipid):
     tipdata =  tipData.objects.filter(id__lte = tipid).order_by('-id')
     return tipdata
 
+def fetchPortfolio(userID):
+    portfolio = {}
+    tradingData =  portfolio.objects.filter(user_id = userID).order_by('trade_date')
+    return portfolio
+
 def registerUser(request):
     status = ''
     message = ''
@@ -86,6 +91,7 @@ def myProfile(request):
 
 def stockData(request):
     if checkUserloggedIn(request) == 1:
+        # portfolio = fetchPortfolio(request.session['data']['user_id'])
         return render(request, 'stockData.html')
     else:
         return HttpResponseRedirect("/logIn")
@@ -147,7 +153,7 @@ def getStockList(request):
         else:
             return JsonResponse({"message": "No data found", "status": "failure"}, status=200)
     else:
-        return JsonResponse({"message": "Please Log In", "status": "failure"}, status=200)
+        return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)
     
 def companyInfo(request, companyId):
     if checkUserloggedIn(request) == 1:
@@ -164,3 +170,24 @@ def companyInfo(request, companyId):
         return render(request, 'companyInfo.html',{'status': status ,'message': message,'data': data})
     else:
         return HttpResponseRedirect("/logIn")
+
+def buyStock(request):
+    if checkUserloggedIn(request) == 1:
+        price = 100
+        insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = request.GET.get('code'), qty = request.GET.get('quantity'), price = price, buy_sell = 'buy', trade_date = str(timezone.now()))
+        if insertinfo.__dict__['id']:
+            return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+        else:
+            return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+    else:
+        return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)
+
+def sellStock(request):
+    if checkUserloggedIn(request) == 1:
+        
+        # if insertinfo.__dict__['id']:
+        #     return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+        # else:
+            return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+    else:
+        return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)

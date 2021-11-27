@@ -22,3 +22,12 @@ class stockList(models.Model):
     is_active = models.SmallIntegerField(default=1)
     sector = models.TextField()
     date_created=models.DateTimeField(default=datetime.now)
+
+class portfolio(models.Model):
+    user_id = models.BigIntegerField()
+    stock = models.CharField(max_length=10)
+    trade_date = models.DateTimeField()
+    qty = models.IntegerField(default=0)
+    price = models.DecimalField(decimal_places =2, max_digits=5)
+    buy_sell=models.CharField(max_length=5)
+    date_created=models.DateTimeField(default=datetime.now)
