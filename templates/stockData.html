@@ -85,7 +85,7 @@
                                             <td>{{e.buy_sell}}</td>
                                             <td>{{e.stock}}</td>
                                             <td>{{e.qty}}</td>
-                                            <td>{{e.price}}</td>
+                                            <td>{{e.price|floatformat:2}}</td>
                                             <td>{{e.trade_date}}</td>
                                             <td>{{ e.qty|mul:e.price |floatformat:2}}</td>
                                         </tr>
