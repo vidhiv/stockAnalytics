@@ -1,5 +1,6 @@
 
 import hashlib
+from os import PRIO_PROCESS
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -22,10 +23,70 @@ def fetchTipData(tipid):
     tipdata =  tipData.objects.filter(id__lte = tipid).order_by('-id')
     return tipdata
 
+def getStockLivePrice():
+    price = 325.45
+    return price
+
 def fetchPortfolio(userID):
-    portfolio = {}
-    tradingData =  portfolio.objects.filter(user_id = userID).order_by('trade_date')
-    return portfolio
+    openposition = []
+    trading = []
+    buyingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'buy').order_by('stock', 'trade_date')
+    sellingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'sell').order_by('stock', 'trade_date')
+    print(len(buyingData))
+    print(len(sellingData))
+    if len(buyingData) > 0 and len(sellingData) > 0:
+        print('d')
+        b = 0
+        s = 0 
+        while s < len(sellingData):
+            bd = buyingData[b]
+            sd = sellingData[s]
+            if sd.stock == bd.stock:
+                sellqty = 0
+                sellprice = 0
+                stockname = sd.stock
+                buyqty = 0
+                buyprice = 0
+                while s < len(sellingData):
+                    sd = sellingData[s]
+                    if sd.stock == stockname:
+                        sellqty += sd.qty
+                        sellprice += (sd.price * sd.qty)
+                        s += 1
+                    else:
+                        break
+                    
+                while b < len(buyingData):
+                    bd = buyingData[b]
+                    if bd.stock == stockname:
+                        buyqty += bd.qty
+                        buyprice += (bd.price * bd.qty)
+                        b += 1
+                    else:
+                        break
+                
+                perbuyprice = buyprice/buyqty
+                pnl = sellprice - (sellqty * perbuyprice)
+                trading.append({'stock': stockname, 'pnl': pnl, 'buyPrice': (sellqty * perbuyprice), 'sellPrice': sellprice, 'qty': sellqty})
+                if buyqty > sellqty:
+                    openposition.append({'buy_sell': 'buy', 'stock': stockname,'qty': (buyqty - sellqty), 'price' : perbuyprice, 'trade_date' : bd.trade_date })
+            else:
+                openposition.append(bd)
+                b += 1
+
+        while b < len(buyingData):
+            bd = buyingData[b]
+            openposition.append(bd)
+            b += 1
+    else:
+        if len(buyingData) > 0:
+            openposition = buyingData
+
+    myportfolio = {
+        'openposition' : openposition,
+        'pnl': trading
+    }
+    return myportfolio
 
 def checkIfOverSEll(data):
     overSell = True
@@ -108,8 +169,9 @@ def myProfile(request):
 
 def stockData(request):
     if checkUserloggedIn(request) == 1:
-        # portfolio = fetchPortfolio(request.session['data']['user_id'])
-        return render(request, 'stockData.html')
+        portfolio = fetchPortfolio(request.session['data']['user_id'])
+        print(portfolio['pnl'])
+        return render(request, 'stockData.html', {'status': 'success','message': 'Data fetched','data': portfolio})
     else:
         return HttpResponseRedirect("/logIn")
 
@@ -190,7 +252,7 @@ def companyInfo(request, companyId):
 
 def buyStock(request):
     if checkUserloggedIn(request) == 1:
-        price = 310
+        price = getStockLivePrice()
         insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = request.GET.get('code'), qty = request.GET.get('quantity'), price = price, buy_sell = 'buy', trade_date = timezone.now())
         if insertinfo.__dict__['id']:
             return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
@@ -202,7 +264,7 @@ def buyStock(request):
 def sellStock(request):
     if checkUserloggedIn(request) == 1:
         update = {}
-        update['price'] = 350
+        update['price'] = getStockLivePrice()
         update['qty'] = request.GET.get('quantity')
         update['stock'] = request.GET.get('code')
         update['user_id'] = request.session['data']['user_id']

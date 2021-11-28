@@ -49,6 +49,7 @@ header {
 .coloredRow h3 {
     padding-top: 1em;
     border-bottom: 4px solid rgb(46 193 146);
+    font-variant-caps: small-caps;
 }
 
 .coloredRow ul {
@@ -144,6 +145,7 @@ header {
 .uncoloredRow h3 {
     padding-top: 1em;
     border-bottom: 4px solid rgb(46 193 146);
+    font-variant-caps: small-caps;
 }
 
 .uncoloredRow ul {
@@ -183,6 +185,15 @@ header {
 
 .tradingwarning {
     font-size: 0.7em;
+    font-variant-caps: small-caps;
+}
+
+.table {
+    color: #6b635f;
+}
+
+.rowstockData {
+    padding: 1em;
 }
 
 /* modal css */
@@ -202,6 +213,7 @@ header {
 .modal h3 {
     color: #6b635f;
     border-bottom: 4px solid rgb(46 193 146);
+    font-variant-caps: small-caps;
 }
 
 .modal .rowClass {

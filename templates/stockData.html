@@ -1,7 +1,7 @@
 {% extends 'logInHeader.html' %}
 {% block content %}
 {% load static %}
-
+{% load mathfilters %}
 <script src="{% static 'js/stockData.js' %}"></script>
 <section class="coloredRow">
     <div class="container-fluid">
@@ -30,75 +30,73 @@
 </section>
 <section class="uncoloredRow">
     <div class="row">
-        <div class="col-lg-11">
+        <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-10" id="userregistration">
                     <div class="row">
                         <div class="col-lg-11">
-                            <h3>Paper Trading</h3>
+                            <h3>My Portfolio <span class="tradingwarning">(Papertrading*)</span></h3>
                             <div class="row">
-                                <label class="control-label col-sm-3"> <strong>My Portfolio</strong> </label>
+                                <label class="control-label col-sm-12 smallcaps text-center rowstockData"> <strong>Profit And Loss</strong> </label>
+                                {% if data.pnl %}
                                 <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Stock</th>
-                                            <th scope="col">Buy Date</th>
-                                            <th scope="col">Buy Price</th>
-                                            <th scope="col">Sell Date</th>
-                                            <th scope="col">Sell Price</th>
-                                            <th scope="col">Profit/Loss</th>
-                                            <th scope="col">Profit/Loss Amt.</th>
+                                            <th scope="col">STOCK</th>
+                                            <th scope="col">QTY</th>
+                                            <th scope="col">BUY PRICE</th>
+                                            <th scope="col">SELL PRICE</th>
+                                            <th scope="col">PROFIT / LOSS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for e in data.pnl %}
                                         <tr>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>P</td>
-                                            <td>xx.xx</td>
+                                            <td>{{e.stock}}</td>
+                                            <td>{{e.qty}}</td>
+                                            <td>{{e.buyPrice|floatformat:2}}</td>
+                                            <td>{{e.sellPrice|floatformat:2}}</td>
+                                            <td>{{e.pnl|floatformat:2}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>L</td>
-                                            <td>xx.xx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>P</td>
-                                            <td>xx.xx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>P</td>
-                                            <td>xx.xx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>xx/xx/xxxx</td>
-                                            <td>xx.xx</td>
-                                            <td>L</td>
-                                            <td>xx.xx</td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <label class="control-label">You may not have sold any of your positions</label>
+                                {% endif %}
                             </div>
+                            <div class="row">
+                                <label class="control-label col-sm-12 smallcaps text-center rowstockData"> <strong>Open Positions</strong> </label>
+                                {% if data.openposition %}
+                                <table class="table ">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">BUY / SELL</th>
+                                            <th scope="col">STOCK</th>
+                                            <th scope="col">QTY</th>
+                                            <th scope="col">PRICE</th>
+                                            <th scope="col">DATE</th>
+                                            <th scope="col">INVESTMENT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for e in data.openposition%}
+                                        <tr class="smallcaps">
+                                            <td>{{e.buy_sell}}</td>
+                                            <td>{{e.stock}}</td>
+                                            <td>{{e.qty}}</td>
+                                            <td>{{e.price}}</td>
+                                            <td>{{e.trade_date}}</td>
+                                            <td>{{ e.qty|mul:e.price |floatformat:2}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                <label class="control-label">You may not have any open positions</label>
+                                {% endif %}
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
