@@ -32,10 +32,9 @@ def fetchPortfolio(userID):
     trading = []
     buyingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'buy').order_by('stock', 'trade_date')
     sellingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'sell').order_by('stock', 'trade_date')
-    print(len(buyingData))
-    print(len(sellingData))
+    # print(len(buyingData))
+    # print(len(sellingData))
     if len(buyingData) > 0 and len(sellingData) > 0:
-        print('d')
         b = 0
         s = 0 
         while s < len(sellingData):
@@ -170,7 +169,7 @@ def myProfile(request):
 def stockData(request):
     if checkUserloggedIn(request) == 1:
         portfolio = fetchPortfolio(request.session['data']['user_id'])
-        print(portfolio['pnl'])
+        # print(portfolio['pnl'])
         return render(request, 'stockData.html', {'status': 'success','message': 'Data fetched','data': portfolio})
     else:
         return HttpResponseRedirect("/logIn")
