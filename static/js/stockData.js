@@ -51,7 +51,7 @@ $(document).ready(function () {
         $("#placeOrder").data('order', '')
         $("#placeOrder").text("")
         $('.successmessage').text(''),
-        $('.failuremessage').text('')
+            $('.failuremessage').text('')
     });
 
     $("body").on('click', '#placeOrder', function (e) {
@@ -70,12 +70,13 @@ $(document).ready(function () {
                     code: text,
                     quantity: qty
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     $('.successmessage').text(''),
-                    $('.failuremessage').text('')
+                        $('.failuremessage').text('')
                 },
                 success: function (response) {
                     if (response.status == 'success') {
+                        $("#stockQty").val('');
                         $('.successmessage').text(response.message)
                     } else {
                         $('.failuremessage').text(response.message)
@@ -94,12 +95,13 @@ $(document).ready(function () {
                     code: text,
                     quantity: qty
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     $('.successmessage').text(''),
-                    $('.failuremessage').text('')
+                        $('.failuremessage').text('')
                 },
                 success: function (response) {
                     if (response.status == 'success') {
+                        $("#stockQty").val('');
                         $('.successmessage').text(response.message)
                     } else {
                         $('.failuremessage').text(response.message)

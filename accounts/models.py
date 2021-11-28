@@ -26,7 +26,7 @@ class stockList(models.Model):
 class portfolio(models.Model):
     user_id = models.BigIntegerField()
     stock = models.CharField(max_length=10)
-    trade_date = models.DateTimeField()
+    trade_date = models.DateField()
     qty = models.IntegerField(default=0)
     price = models.DecimalField(decimal_places =2, max_digits=5)
     buy_sell=models.CharField(max_length=5)

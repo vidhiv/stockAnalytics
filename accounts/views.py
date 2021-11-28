@@ -27,6 +27,23 @@ def fetchPortfolio(userID):
     tradingData =  portfolio.objects.filter(user_id = userID).order_by('trade_date')
     return portfolio
 
+def checkIfOverSEll(data):
+    overSell = True
+    totalbuy = portfolio.objects.raw("SELECT sum(qty) as id FROM accounts_portfolio where user_id = %s and stock = %s and buy_sell = 'buy'",[data['user_id'], data['stock']])[0]
+    totalsell = portfolio.objects.raw("SELECT sum(qty) as id FROM accounts_portfolio where user_id = %s and stock = %s and buy_sell = 'sell'",[data['user_id'], data['stock']])[0]
+    totalbuy = totalbuy.__dict__['id']
+    totalsell = totalsell.__dict__['id']
+    if totalbuy == None:
+        totalbuy = 0
+    if totalsell == None:
+        totalsell = 0
+    allowed = totalbuy - totalsell
+    # print("allowed")
+    # print(allowed)
+    if int(data['qty']) <= allowed:
+        overSell = False
+    return overSell
+
 def registerUser(request):
     status = ''
     message = ''
@@ -173,8 +190,8 @@ def companyInfo(request, companyId):
 
 def buyStock(request):
     if checkUserloggedIn(request) == 1:
-        price = 100
-        insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = request.GET.get('code'), qty = request.GET.get('quantity'), price = price, buy_sell = 'buy', trade_date = str(timezone.now()))
+        price = 310
+        insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = request.GET.get('code'), qty = request.GET.get('quantity'), price = price, buy_sell = 'buy', trade_date = timezone.now())
         if insertinfo.__dict__['id']:
             return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
         else:
@@ -184,10 +201,20 @@ def buyStock(request):
 
 def sellStock(request):
     if checkUserloggedIn(request) == 1:
-        
-        # if insertinfo.__dict__['id']:
-        #     return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
-        # else:
-            return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+        update = {}
+        update['price'] = 350
+        update['qty'] = request.GET.get('quantity')
+        update['stock'] = request.GET.get('code')
+        update['user_id'] = request.session['data']['user_id']
+        rstatus = checkIfOverSEll(update)
+        # print(rstatus)
+        if rstatus == True:
+            return JsonResponse({"message": "Cannot sell more than you have bought", "status": "failure"}, status=200)
+        else:
+            updateinfo = portfolio.objects.create(user_id = update['user_id'], stock = update['stock'], qty = update['qty'], price = update['price'], buy_sell = 'sell', trade_date = timezone.now())
+            if updateinfo.__dict__['id']:
+                return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+            else:
+                return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
     else:
         return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)
