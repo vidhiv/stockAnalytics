@@ -61,6 +61,9 @@
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                                
+                                <label class="control-label col-sm-12 smallcaps text-center rowstockData"> <strong>Total Profit & Loss: </strong>{{data.tilldateprofit|floatformat:2}}</label>
+
                                 {% else %}
                                 <label class="control-label">You may not have sold any of your positions</label>
                                 {% endif %}

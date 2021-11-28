@@ -30,6 +30,7 @@ def getStockLivePrice():
 def fetchPortfolio(userID):
     openposition = []
     trading = []
+    tilldateprofit = 0
     buyingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'buy').order_by('stock', 'trade_date')
     sellingData =  portfolio.objects.filter(user_id = userID, buy_sell = 'sell').order_by('stock', 'trade_date')
     # print(len(buyingData))
@@ -66,6 +67,7 @@ def fetchPortfolio(userID):
                 
                 perbuyprice = buyprice/buyqty
                 pnl = sellprice - (sellqty * perbuyprice)
+                tilldateprofit += pnl
                 trading.append({'stock': stockname, 'pnl': pnl, 'buyPrice': (sellqty * perbuyprice), 'sellPrice': sellprice, 'qty': sellqty})
                 if buyqty > sellqty:
                     openposition.append({'buy_sell': 'buy', 'stock': stockname,'qty': (buyqty - sellqty), 'price' : perbuyprice, 'trade_date' : bd.trade_date })
@@ -83,7 +85,8 @@ def fetchPortfolio(userID):
 
     myportfolio = {
         'openposition' : openposition,
-        'pnl': trading
+        'pnl': trading,
+        'tilldateprofit': tilldateprofit
     }
     return myportfolio
 
