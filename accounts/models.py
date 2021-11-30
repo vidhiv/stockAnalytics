@@ -28,6 +28,16 @@ class portfolio(models.Model):
     stock = models.CharField(max_length=10)
     trade_date = models.DateField()
     qty = models.IntegerField(default=0)
-    price = models.DecimalField(decimal_places =2, max_digits=5)
+    price = models.DecimalField(decimal_places =4, max_digits=10)
     buy_sell=models.CharField(max_length=5)
+    date_created=models.DateTimeField(default=datetime.now)
+
+class raw_stock_data(models.Model):
+    stock_ticker = models.CharField(max_length=10)
+    stock_time = models.DateTimeField()
+    open_price = models.DecimalField(decimal_places =4, max_digits=10)
+    high_price = models.DecimalField(decimal_places =4, max_digits=10)
+    low_price = models.DecimalField(decimal_places =4, max_digits=10)
+    close_price = models.DecimalField(decimal_places =4, max_digits=10)
+    volume = models.DecimalField(decimal_places =4, max_digits=10)
     date_created=models.DateTimeField(default=datetime.now)
