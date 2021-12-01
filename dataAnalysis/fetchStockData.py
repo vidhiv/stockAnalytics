@@ -33,12 +33,12 @@ df.reset_index(drop=True)
 data_columns = ["stock_ticker", "stock_time", "open_price", "high_price", "low_price", "close_price", "volume"]
 df.columns = data_columns
 db = pymysql.connect(
-        host='stockanalytics.cluster-cbz7og9zfi6s.us-east-1.rds.amazonaws.com', user="admin",password="Stock65%",
+        host='stockanalytics.cbz7og9zfi6s.us-east-1.rds.amazonaws.com', user="admin",password="Stock65%",
             port=3306, database="StockAnalytics")
 try:
     with db.cursor() as cur:
         cur.execute('TRUNCATE TABLE StockAnalytics.accounts_raw_stock_data')
 finally:
     db.close()
-engine = create_engine("mysql+pymysql://admin:Stock65%@stockanalytics.cluster-cbz7og9zfi6s.us-east-1.rds.amazonaws.com/StockAnalytics")
+engine = create_engine("mysql+pymysql://admin:Stock65%@stockanalytics.cbz7og9zfi6s.us-east-1.rds.amazonaws.com/StockAnalytics")
 df.to_sql('accounts_raw_stock_data',engine,index=False,if_exists='append')
