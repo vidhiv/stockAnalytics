@@ -34,4 +34,5 @@ urlpatterns = [
     path('companyInfo/<int:companyId>/',views.companyInfo),
     path('buyStock',views.buyStock),
     path('sellStock',views.sellStock),
+    path('viewAllTrades',views.viewAllTrades),
 ]

@@ -73,12 +73,14 @@
                 <h3>Price Prediction/ Charts</h3>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="control-label col-sm-4"> <strong>Current Predicted price:</strong> </label>
-                        <label class="control-label col-sm-4">xx.xx</label>
+                        <label class="control-label col-sm-6"> <strong>Current Predicted price:</strong> </label>
+                        <label class="control-label col-sm-4"><strong class="highlightPrice">xx.xx</strong></label>
+                        
+                        <label class="control-label col-sm-10"> <strong>Recent price updates(5 min interval): </strong> </label>
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Date (Eastern Time)</th>
                                     <th scope="col">Open</th>
                                     <th scope="col">High</th>
                                     <th scope="col">Low</th>
@@ -86,34 +88,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for e in recentPriceUpdates %}
                                 <tr>
-                                    <td>xx/xx/xxxx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
+                                    <td>{{e.stock_time}}</td>
+                                    <td>{{e.open_price}}</td>
+                                    <td>{{e.high_price}}</td>
+                                    <td>{{e.low_price}}</td>
+                                    <td>{{e.close_price}}</td>
                                 </tr>
-                                <tr>
-                                    <td>xx/xx/xxxx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                </tr>
-                                <tr>
-                                    <td>xx/xx/xxxx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                </tr>
-                                <tr>
-                                    <td>xx/xx/xxxx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                    <td>xx.xx</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

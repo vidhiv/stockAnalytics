@@ -228,4 +228,9 @@ header {
     border: 1px solid #888;
     width: 30%; /* Could be more or less, depending on screen size */
 }
+
+.highlightPrice {
+    color:red;
+    font-size: 1.2em;
+}
 /* modal css end */

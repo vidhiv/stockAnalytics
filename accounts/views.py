@@ -1,6 +1,5 @@
 
 import hashlib
-from os import PRIO_PROCESS
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -12,6 +11,7 @@ from .forms import *
 from .models import *
 
 # Create your views here.
+
 def checkUserloggedIn(request):
     status = 0
     if request.session.has_key('data'):
@@ -23,9 +23,15 @@ def fetchTipData(tipid):
     tipdata =  tipData.objects.filter(id__lte = tipid).order_by('-id')
     return tipdata
 
-def getStockLivePrice():
-    price = 325.45
-    return price
+def getStockLivePrice(stockCode):
+    status = 'failure'
+    stockprice = 0.0
+    price = raw_stock_data.objects.filter(stock_ticker = stockCode).order_by('-stock_time')[:1]
+    if len(price) > 0:
+        status = 'success'
+        stockprice = price[0].close_price
+
+    return {'status': status, 'stockprice': stockprice}
 
 def fetchPortfolio(userID):
     openposition = []
@@ -244,41 +250,67 @@ def companyInfo(request, companyId):
         companyInfo = stockList.objects.filter(id=companyId).values()
         if len(companyInfo) == 1:
             data = list(companyInfo)
+            recentPriceUpdates = raw_stock_data.objects.filter(stock_ticker = data[0]['code']).order_by('-stock_time')[:10]
             message = 'company info avaialable'
         else:
             status = 'failure'
             message = 'Information Unavailable'
-        return render(request, 'companyInfo.html',{'status': status ,'message': message,'data': data})
+        return render(request, 'companyInfo.html',{'status': status ,'message': message,'data': data, 'recentPriceUpdates' : recentPriceUpdates})
     else:
         return HttpResponseRedirect("/logIn")
 
 def buyStock(request):
     if checkUserloggedIn(request) == 1:
-        price = getStockLivePrice()
-        insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = request.GET.get('code'), qty = request.GET.get('quantity'), price = price, buy_sell = 'buy', trade_date = timezone.now())
-        if insertinfo.__dict__['id']:
-            return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+        stock = request.GET.get('code')
+        price = getStockLivePrice(stock)
+        if(price['status'] == 'success'):
+            insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = stock, qty = request.GET.get('quantity'), price = price['stockprice'], buy_sell = 'buy', trade_date = timezone.now())
+            if insertinfo.__dict__['id']:
+                return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+            else:
+                return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
         else:
-            return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+            return JsonResponse({"message": "Stock price not available. Transaction incomplete", "status": "failure"}, status=200)
     else:
         return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)
 
 def sellStock(request):
     if checkUserloggedIn(request) == 1:
         update = {}
-        update['price'] = getStockLivePrice()
         update['qty'] = request.GET.get('quantity')
         update['stock'] = request.GET.get('code')
         update['user_id'] = request.session['data']['user_id']
-        rstatus = checkIfOverSEll(update)
-        # print(rstatus)
-        if rstatus == True:
-            return JsonResponse({"message": "Cannot sell more than you have bought", "status": "failure"}, status=200)
-        else:
-            updateinfo = portfolio.objects.create(user_id = update['user_id'], stock = update['stock'], qty = update['qty'], price = update['price'], buy_sell = 'sell', trade_date = timezone.now())
-            if updateinfo.__dict__['id']:
-                return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+        update['price'] = getStockLivePrice(update['stock'])
+        if(update['price']['status'] == 'success'):
+            rstatus = checkIfOverSEll(update)
+            # print(rstatus)
+            if rstatus == True:
+                return JsonResponse({"message": "Cannot sell more than you have bought", "status": "failure"}, status=200)
             else:
-                return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+                updateinfo = portfolio.objects.create(user_id = update['user_id'], stock = update['stock'], qty = update['qty'], price = update['price']['stockprice'], buy_sell = 'sell', trade_date = timezone.now())
+                if updateinfo.__dict__['id']:
+                    return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+                else:
+                    return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
+        else:
+            return JsonResponse({"message": "Stock price not available. Transaction incomplete", "status": "failure"}, status=200)
     else:
         return JsonResponse({"message": "You have been logged out. Please log in to continue", "status": "failure"}, status=200)
+
+def viewAllTrades(request):
+    if checkUserloggedIn(request) == 1:
+        data = {}
+        status = 'success'
+        message = ''
+        uid = request.session['data']['user_id']
+        print(uid)
+        tradedata = portfolio.objects.filter(user_id=uid).order_by('id').values()
+        if len(tradedata) > 0:
+            data = list(tradedata)
+            message = 'trade info avaialable'
+        else:
+            status = 'failure'
+            message = 'You may have not performed any buy/sell transaction till now'
+        return render(request, 'viewAllTrades.html',{'status': status ,'message': message,'data': data})
+    else:
+        return HttpResponseRedirect("/logIn")

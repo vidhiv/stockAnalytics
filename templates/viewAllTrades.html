@@ -1,0 +1,54 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+{% load mathfilters %}
+<script src="{% static 'js/stockData.js' %}"></script>
+    
+<section class="uncoloredRow">
+    <div class="row">
+        <div class="col-lg-12 text-center" style="padding-top: 1em; ">
+            <img src="{% static 'images/viewmytrades.jpeg' %}" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-1" ></div>
+                <div class="col-lg-10" >
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <h3>My Trades <span class="tradingwarning">(Papertrading*)</span></h3>
+                            <div class="row">
+                                {% if status == 'success' %}
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">DATE</th>
+                                            <th scope="col">STOCK</th>
+                                            <th scope="col">BUY/SELL</th>
+                                            <th scope="col">QTY</th>
+                                            <th scope="col">PRICE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for e in data %}
+                                        <tr>
+                                            <td>{{e.trade_date}}</td>
+                                            <td>{{e.stock}}</td>
+                                            <td>{{e.buy_sell}}</td>
+                                            <td>{{e.qty}}</td>
+                                            <td>{{e.price|floatformat:2}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                <label class="control-label">{{message}}</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
