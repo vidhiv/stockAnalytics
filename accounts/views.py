@@ -266,7 +266,7 @@ def buyStock(request):
         if(price['status'] == 'success'):
             insertinfo = portfolio.objects.create(user_id = request.session['data']['user_id'], stock = stock, qty = request.GET.get('quantity'), price = price['stockprice'], buy_sell = 'buy', trade_date = timezone.now())
             if insertinfo.__dict__['id']:
-                return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+                return JsonResponse({"message": "Transaction successful (bought @ $"+ str(price['stockprice'])  + ")", "status": "success"}, status=200)
             else:
                 return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
         else:
@@ -289,7 +289,7 @@ def sellStock(request):
             else:
                 updateinfo = portfolio.objects.create(user_id = update['user_id'], stock = update['stock'], qty = update['qty'], price = update['price']['stockprice'], buy_sell = 'sell', trade_date = timezone.now())
                 if updateinfo.__dict__['id']:
-                    return JsonResponse({"message": "Transaction successful", "status": "success"}, status=200)
+                    return JsonResponse({"message": "Transaction successful (sold @ $"+ str(update['price']['stockprice'])  + ")", "status": "success"}, status=200)
                 else:
                     return JsonResponse({"message": "Transaction incomplete", "status": "failure"}, status=200)
         else:
