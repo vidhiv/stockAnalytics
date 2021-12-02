@@ -4,4 +4,3 @@ b = 5
 c = a + b
 print("value of c:")
 print(c)
-print("time")
