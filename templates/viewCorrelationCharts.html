@@ -1,0 +1,54 @@
+{% extends 'logInHeader.html' %}
+{% block content %}
+{% load static %}
+
+<section class="coloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5" style="background: white;">
+                <img src="{% static 'images/correlation.jpeg' %}" class="img-fluid" alt="" >
+            </div>
+            <div class="col-lg-5">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h3>What is Correlation?</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="uncoloredRow">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+                <h3>Correlated Stocks</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Airbnb Inc</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Alphabet Inc Class A</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Amazon.com, Inc.</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Apple Inc.</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Microsoft Corporation</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> NVIDIA Corporation</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Sea Ltd</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Shopify Inc</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Square Inc</li>
+                            <li class="smallcaps"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Tesla Inc</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="{% static 'images/charts/amzn.png' %}" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

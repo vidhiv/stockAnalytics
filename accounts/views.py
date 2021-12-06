@@ -248,6 +248,7 @@ def companyInfo(request, companyId):
         status = 'success'
         message = ''
         companyInfo = stockList.objects.filter(id=companyId).values()
+        recentPriceUpdates = {}
         if len(companyInfo) == 1:
             data = list(companyInfo)
             recentPriceUpdates = raw_stock_data.objects.filter(stock_ticker = data[0]['code']).order_by('-stock_time')[:10]
@@ -312,5 +313,14 @@ def viewAllTrades(request):
             status = 'failure'
             message = 'You may have not performed any buy/sell transaction till now'
         return render(request, 'viewAllTrades.html',{'status': status ,'message': message,'data': data})
+    else:
+        return HttpResponseRedirect("/logIn")
+
+def viewCorrelationCharts(request):
+    if checkUserloggedIn(request) == 1:
+        data = {}
+        status = 'success'
+        message = ''
+        return render(request, 'viewCorrelationCharts.html',{'status': status ,'message': message,'data': data})
     else:
         return HttpResponseRedirect("/logIn")

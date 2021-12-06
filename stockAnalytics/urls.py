@@ -35,4 +35,5 @@ urlpatterns = [
     path('buyStock',views.buyStock),
     path('sellStock',views.sellStock),
     path('viewAllTrades',views.viewAllTrades),
+    path('viewCorrelationCharts',views.viewCorrelationCharts),
 ]
