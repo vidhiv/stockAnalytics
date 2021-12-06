@@ -316,11 +316,11 @@ def viewAllTrades(request):
     else:
         return HttpResponseRedirect("/logIn")
 
-def viewCorrelationCharts(request):
+def viewCorrelationGraph(request):
     if checkUserloggedIn(request) == 1:
         data = {}
         status = 'success'
         message = ''
-        return render(request, 'viewCorrelationCharts.html',{'status': status ,'message': message,'data': data})
+        return render(request, 'viewCorrelationGraph.html',{'status': status ,'message': message,'data': data})
     else:
         return HttpResponseRedirect("/logIn")
