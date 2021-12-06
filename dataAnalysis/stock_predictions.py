@@ -36,8 +36,8 @@ def prepare_dataframe(df, st):
 
 # Add forecast stock price column to the prepared dataframe
 def add_forecast_column(dfreg):
-    # Separating 1 percent data to forecast
-    forecast_out = int(math.ceil(0.01 * len(dfreg)))
+    # Separating next four weeks data to forecast
+    forecast_out = 20 #int(math.ceil(0.01 * len(dfreg)))
     
     # Separating the label - close_price column for forecasting (prediction)
     forecast_col = 'close_price'
