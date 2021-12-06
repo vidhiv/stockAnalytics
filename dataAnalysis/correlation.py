@@ -35,6 +35,6 @@ def plot_correlation(corr):
     plt.xticks(range(len(corr)), corr.columns)
     plt.yticks(range(len(corr)), corr.columns)
     plt.title("Correlation between the competitor stocks")
-    plt.savefig('/home/ubuntu/CS623StockAnalytics/stockAnalytics/static/images/charts/correlation.png', format="png")
+    plt.savefig('/home/ubuntu/CS623StockAnalytics/static/images/charts/correlation.png', format="png")
 
 # ##### From the Heatmap, we can find great correlations among the competing stocks. However, this might not show causality, and could just show the trend in the technology industry rather than show how competing stocks affect each other.
