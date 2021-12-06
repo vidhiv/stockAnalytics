@@ -41,6 +41,12 @@ def main():
         # Add forecasted prices to dataframe
         dfreg = sp.get_predictions(dfreg, forecast_set)
         
+        # Save predictions to csv 
+        dfpred = dfreg[-len(forecast_set):]
+        dfpred = dfpred.dropna(axis=1)
+        #print(dfpred)
+        dfpred.to_csv("/home/ubuntu/CS623StockAnalytics/static/predictions/"+st.lower()+".csv", sep='\t')
+        
         # Plot forecasted prices
         sp.plot_forecast(dfreg, st)
 
