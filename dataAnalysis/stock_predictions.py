@@ -128,6 +128,6 @@ def plot_forecast(dfreg, st):
     plt.title("Forecasting stock "+st)
     plt.xlabel('Date')
     plt.ylabel('Price')
-    plt.savefig("/home/ubuntu/CS623StockAnalytics/static/images/charts/"+st+".png", format="png")
+    plt.savefig("/home/ubuntu/CS623StockAnalytics/static/images/charts/"+st.lower()+".png", format="png")
     plt.show()
     plt.close()
