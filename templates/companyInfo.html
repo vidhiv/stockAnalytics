@@ -76,6 +76,21 @@
                         <label class="control-label col-sm-6"> <strong>Current Predicted price:</strong> </label>
                         <label class="control-label col-sm-4"><strong class="highlightPrice">xx.xx</strong></label>
                         
+                        <script type="text/javascript">
+                            $.get("{% static 'predictions/' %}{{data.0.code|lower}}.csv", function(data) {
+                            var build = '<table border="1" cellpadding="2" cellspacing="0" style="border-collapse: collapse" width="100%">\n';
+                            var head = data.split("\n");
+                            for(var i=0;i<1;i++){
+                            build += "<tr><th>" + head[i] + "</th></tr>";
+                            for(var i=1;i<head.length;i++){
+                            build += "<tr><td>" + head[i].split("\n") + "</td></tr>";
+                            }
+                            }
+                            build += "</table>";
+                            $('#wrap').append(build);
+                            });
+                        </script>
+                        
                         <label class="control-label col-sm-10"> <strong>Recent price updates(5 min interval): </strong> </label>
                         <table class="table">
                             <thead class="thead-dark">
