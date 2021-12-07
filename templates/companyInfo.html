@@ -72,26 +72,45 @@
             <div class="col-lg-10">
                 <h3>Price Prediction/ Charts</h3>
                 <div class="row">
-                    <div id="pred" class="col-lg-6">
-                        <label class="control-label col-sm-6"> <strong>Current Predicted price:</strong> </label>
-                        <label class="control-label col-sm-4"><strong class="highlightPrice">xx.xx</strong></label>
-                        
-                        <script src="http://d3js.org/d3.v3.min.js"></script>
-                        <script type="text/javascript"charset="utf-8">
-                            d3.text("{% static 'predictions/' %}{{data.0.code|lower}}.csv", function(data) {
-                                var parsedCSV = d3.csv.parseRows(data);
-                                var container = d3.select("#pred")
-                                    .append("table")
-                                    .selectAll("tr")
-                                        .data(parsedCSV).enter()
-                                        .append("tr")
-                                    .selectAll("td")
-                                        .data(function(d) { return d; }).enter()
-                                        .append("td")
-                                        .text(function(d) { return d; });
-                            });
-                        </script>
-                        
+                    <div class="col-lg-6">
+                        <label class="control-label col-sm-6"> <strong> Predicted prices (next 5 days):</strong> </label>
+                        <label id="pred" class="control-label col-sm-10"> 
+                            <script src="http://d3js.org/d3.v3.min.js"></script>
+                            <script type="text/javascript"charset="utf-8">
+                              var tabulate = function (data,columns) {
+                                var table = d3.select("#pred").append('table').attr("class", "table")
+                                var thead = table.append('thead').attr("class", "thead-dark")
+                                var tbody = table.append('tbody')
+                                thead.append('tr')
+                                  .selectAll('th')
+                                    .data(columns)
+                                    .enter()
+                                    .append('th')
+                                    .attr("scope", "col")
+                                    .text(function (d) { return d })
+                                var selectedData = data.slice(index, index+5);
+                                var rows = tbody.selectAll('tr')
+                                    .data(selectedData)
+                                    .enter()
+                                    .append('tr')
+
+                                var cells = rows.selectAll('td')
+                                    .data(function(row) {
+                                        return columns.map(function (column) {
+                                            return { column: column, value: row[column] }
+                                      })
+                                  })
+                                  .enter()
+                                  .append('td')
+                                  .text(function (d) { return d.value })
+                              return table;
+                            }
+                            d3.csv("{% static 'predictions/' %}{{data.0.code|lower}}.csv", function (data) {
+                                var columns = ["Date", "Forecasted Price"]
+                                tabulate(data,columns)
+                            })
+                            </script>
+                        </label>
                         <label class="control-label col-sm-10"> <strong>Recent price updates(5 min interval): </strong> </label>
                         <table class="table">
                             <thead class="thead-dark">
