@@ -45,6 +45,7 @@ def main():
         dfpred = dfreg[-len(forecast_set):]
         dfpred = dfpred.dropna(axis=1)
         #print(dfpred)
+        dfpred.columns = ["Date", "Forecasted Price"]
         dfpred[:5].to_csv("/home/ubuntu/CS623StockAnalytics/static/predictions/"+st.lower()+".csv", sep=',')
         
         # Plot forecasted prices
