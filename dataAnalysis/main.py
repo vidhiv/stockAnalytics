@@ -5,7 +5,7 @@ import correlation as cl
 # MAIN FUNCTION
 def main():
     stocks = ["AMZN", "AAPL", "TSLA", "MSFT", "SQ", "GOOGL", "SHOP", "NVDA", "SE", "ABNB"]
-    data = gd.download_data(stocks)
+    data = gd.download_data(stocks, "10y", "1d")
     df = gd.preprocess_data(data, stocks)
     
     # Plot Correlation
