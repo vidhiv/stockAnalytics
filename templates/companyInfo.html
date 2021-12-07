@@ -88,12 +88,10 @@
                                     .append('th')
                                     .attr("scope", "col")
                                     .text(function (d) { return d })
-                                var selectedData = data.slice(index, index+5);
-                                var rows = tbody.selectAll('tr')
-                                    .data(selectedData)
+                                var rows = tbody.selectAll('tr:nth-child(5)')
+                                    .data(data)
                                     .enter()
                                     .append('tr')
-
                                 var cells = rows.selectAll('td')
                                     .data(function(row) {
                                         return columns.map(function (column) {
@@ -107,7 +105,7 @@
                             }
                             d3.csv("{% static 'predictions/' %}{{data.0.code|lower}}.csv", function (data) {
                                 var columns = ["Date", "Forecasted Price"]
-                                tabulate(data,columns)
+                                tabulate(data, columns)
                             })
                             </script>
                         </label>
