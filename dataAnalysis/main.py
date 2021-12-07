@@ -44,7 +44,7 @@ def main():
         # Save predictions to csv 
         dfpred = dfreg[-len(forecast_set):]
         dfpred = dfpred.dropna(axis=1)
-        dfpred = dfpred.reset_index(drop=True)
+        dfpred = dfpred.reset_index()
         dfpred.columns = ["Date", "Forecasted Price"]
         dfpred[:5].to_csv("/home/ubuntu/CS623StockAnalytics/static/predictions/"+st.lower()+".csv", sep=',')
         
